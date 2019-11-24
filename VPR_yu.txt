@@ -1,0 +1,24 @@
+Function VPR_yk(Table As Variant, SearchColomnNum As Long, SearchValue As Variant, _
+N As Long, ResultColomnNum As Long)
+    Dim i As Long, iCount As Long
+    Select Case TypeName(Table)
+    Case "Range"
+            For i = 1 To Table.Rows.Count
+            If Table.Cells(i, SearchColomnNum) = SearchValue Then
+                iCount = iCount + 1
+            End If
+            If iCount = N Then
+                VPR_yk = Table.Cells(i, ResultColomnNum)
+                Exit For
+            End If
+        Next i
+    Case "Variant()"
+        For i = 1 To UBound(Table)
+            If Table(i, 1) = SearchValue Then iCount = iCount + 1
+            If iCount = N Then
+                VPR_yk = Table(i, ResultColomnNum)
+                Exit For
+            End If
+        Next i
+    End Select
+End Function
